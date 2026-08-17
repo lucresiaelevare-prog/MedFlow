@@ -131,7 +131,7 @@ const Shell = ({ children }) => {
             data-testid="sidebar-logo"
           >
             <img
-              src="/brand/medflow-dark.png"
+              src="/brand/medflow-icon.png"
               alt="MedFlow"
               className="w-11 h-11 rounded-lg object-cover shrink-0"
               style={{ background: SB.bg }}
@@ -241,7 +241,7 @@ const Shell = ({ children }) => {
             data-testid="mobile-topbar-logo"
           >
             <img
-              src="/brand/medflow-dark.png"
+              src="/brand/medflow-icon.png"
               alt="MedFlow"
               className="w-8 h-8 rounded-lg object-cover"
               style={{ background: SB.bg }}

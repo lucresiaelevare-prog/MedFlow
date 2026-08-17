@@ -1,0 +1,20 @@
+{
+  "summary": "Frontend-only validation of MedFlow after fixes: (1) blank landing page and (2) new dashboard logo. Both fixes are verified working end-to-end.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "test_credentials": "Admin: admin@medflow.local / MedFlowAdmin!2026",
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Landing at https://iniciar-launch.preview.emergentagent.com/ renders fully (title 'MedFlow — Uma decisão por vez', header MedFlow, Entrar button, and features section including 'Aprenda com um Preceptor IA'). No spinner stuck, zero calls to old b79f9c3a domain, zero HTTP >=400 responses, zero network failures. Admin login (/admin-login) POST /api/auth/admin-login returns 200 and redirects to /admin which renders the Shell layout. data-testid='sidebar-logo' contains <img src='/brand/medflow-icon.png' (naturalWidth=760, complete=true) — image loads successfully. data-testid='mobile-topbar-logo' is present as well. Both original user-reported issues are RESOLVED.",
+  "rca of the issue": "Blank landing was caused by REACT_APP_BACKEND_URL pointing to an old domain (b79f9c3a) that returned 502, so /api/auth/status hung and the app remained in loading state. Fix: updated frontend/.env to https://iniciar-launch.preview.emergentagent.com. Logo change: Shell.jsx now references /brand/medflow-icon.png which exists in public and serves 200."
+}

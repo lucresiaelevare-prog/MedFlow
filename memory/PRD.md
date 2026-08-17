@@ -24,3 +24,8 @@ App para estudantes de medicina (copiloto acadêmico com IA). Restauração de c
 
 ## Backlog
 - Configurar integrações opcionais adicionais (Resend/email, Sentry, Web Push/VAPID) se desejado.
+
+## Iteração (2026-08-17) — correções
+- Página em branco RESOLVIDA: REACT_APP_BACKEND_URL corrigido para https://iniciar-launch.preview.emergentagent.com (apontava para domínio antigo b79f9c3a que dava 502 no browser, travando /auth/status → app preso no spinner).
+- Logo do dashboard trocado pelo novo ícone MedFlow: /brand/medflow-icon.png (recortado/centralizado) usado no Shell.jsx (sidebar desktop + topbar mobile).
+- Verificado pelo testing_agent: 100% frontend, sem issues.
