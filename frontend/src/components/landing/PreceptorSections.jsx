@@ -3,8 +3,8 @@ import { ArrowRight, Sparkles, Check } from 'lucide-react';
 import { PRECEPTOR_CAPS, PRECEPTOR_FLOW, PRECEPTOR_LOADING_STAGES } from './data';
 
 /**
- * Preceptor IA — Seção principal + Experiência sequencial.
- * Onda 5 — reposicionamento da landing após ativação do Preceptor.
+ * Tutor IA — Seção principal + Experiência sequencial.
+ * Onda 5 — reposicionamento da landing após ativação do Tutor.
  * Inspiração visual: Apple / Linear / Stripe / Notion / Raycast.
  */
 
@@ -39,7 +39,7 @@ const Chrome = ({ children, testId, small }) => (
   </div>
 );
 
-// ─── Mockup: interface real do Preceptor com múltiplas superfícies ──
+// ─── Mockup: interface real do Tutor com múltiplas superfícies ──
 const PreceptorInterface = () => (
   <Chrome testId="preceptor-mockup">
     {/* Bubble: pergunta do aluno */}
@@ -56,7 +56,7 @@ const PreceptorInterface = () => (
       </div>
     </div>
 
-    {/* Bubble: Preceptor + tópico identificado */}
+    {/* Bubble: Tutor + tópico identificado */}
     <div className="mb-5">
       <div className="flex items-start gap-2.5">
         <span
@@ -67,7 +67,7 @@ const PreceptorInterface = () => (
         </span>
         <div className="flex-1">
           <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--mf-inst-muted)' }}>
-            Preceptor
+            Tutor
           </p>
           <p className="mt-1 text-[13.5px] leading-[1.55]" style={{ color: 'var(--mf-inst-ink)' }}>
             Entendi. Vou preparar a Revisão Completa: explicação, mapa mental, flashcards, questões e caso clínico.
@@ -187,7 +187,7 @@ const PreceptorInterface = () => (
   </Chrome>
 );
 
-// ─── Seção 1: "Conheça o Preceptor IA" ──────────────────────────
+// ─── Seção 1: "Conheça o Tutor IA" ──────────────────────────
 export const PreceptorShowcase = ({ onCta }) => (
   <section
     data-testid="landing-preceptor-showcase"
@@ -212,7 +212,7 @@ export const PreceptorShowcase = ({ onCta }) => (
 
     <div className="max-w-[1240px] mx-auto px-6 md:px-10">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.95fr)] gap-14 lg:gap-20 items-center">
-        {/* Coluna esquerda — mockup gigante do Preceptor */}
+        {/* Coluna esquerda — mockup gigante do Tutor */}
         <div className="order-2 lg:order-1">
           <PreceptorInterface />
         </div>
@@ -223,7 +223,7 @@ export const PreceptorShowcase = ({ onCta }) => (
             className="text-[11.5px] font-semibold uppercase tracking-widest"
             style={{ color: 'var(--mf-brand)', letterSpacing: '0.22em' }}
           >
-            <span>Conheça o Preceptor IA</span>
+            <span>Conheça o Tutor IA</span>
           </p>
 
           <h2
@@ -288,7 +288,7 @@ export const PreceptorShowcase = ({ onCta }) => (
               className="inline-flex items-center gap-2 px-5 py-3 text-[14px] font-medium text-white"
               style={{ background: 'var(--mf-brand)', borderRadius: 6 }}
             >
-              <span>Conversar com o Preceptor</span>
+              <span>Conversar com o Tutor</span>
               <ArrowRight strokeWidth={2} className="w-4 h-4" />
             </button>
             <p className="mt-3 text-[12px]" style={{ color: 'var(--mf-inst-muted)' }}>
@@ -382,7 +382,7 @@ const LoadingCard = () => {
           className="text-[11.5px] font-semibold uppercase tracking-widest"
           style={{ color: 'var(--mf-inst-muted)', letterSpacing: '0.16em' }}
         >
-          <span>{done ? 'Revisão concluída' : 'Preceptor trabalhando'}</span>
+          <span>{done ? 'Revisão concluída' : 'Tutor trabalhando'}</span>
         </p>
       </div>
 
@@ -465,7 +465,7 @@ const LoadingCard = () => {
   );
 };
 
-// ─── Seção 2: Sequência tipo Apple do fluxo do Preceptor ──────
+// ─── Seção 2: Sequência tipo Apple do fluxo do Tutor ──────
 export const PreceptorExperience = ({ onCta }) => (
   <section
     data-testid="landing-preceptor-experience"
@@ -502,7 +502,7 @@ export const PreceptorExperience = ({ onCta }) => (
           style={{ color: 'var(--mf-inst-ink-2)' }}
         >
           <span>
-            O Preceptor não devolve um bloco de texto. Ele conduz um raciocínio — do
+            O Tutor não devolve um bloco de texto. Ele conduz um raciocínio — do
             entendimento ao caso clínico — em segundos, dentro da interface.
           </span>
         </p>
@@ -565,7 +565,7 @@ export const PreceptorExperience = ({ onCta }) => (
           className="inline-flex items-center gap-2 px-6 py-3.5 text-[14px] font-medium text-white"
           style={{ background: 'var(--mf-brand)', borderRadius: 8 }}
         >
-          <span>Experimentar o Preceptor</span>
+          <span>Experimentar o Tutor</span>
           <ArrowRight strokeWidth={2} className="w-4 h-4" />
         </button>
       </div>

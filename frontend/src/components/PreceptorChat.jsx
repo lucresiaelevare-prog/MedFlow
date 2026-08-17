@@ -5,7 +5,7 @@ import {
 import api from '@/lib/api';
 
 /**
- * Preceptor IA — chat contextualizado da Devolutiva Inteligente Med Flow™.
+ * Tutor IA — chat contextualizado da Devolutiva Inteligente Med Flow™.
  *
  * O contexto (enunciado, alternativas, gabarito, devolutiva completa,
  * evidências, perfil do aluno) já vai automaticamente no system prompt
@@ -101,7 +101,7 @@ export const PreceptorCTA = ({ onOpen }) => (
         </p>
         <p className="mt-1.5 text-[13.5px] leading-relaxed opacity-90 max-w-lg">
           <span>
-            O Preceptor parte da questão, das alternativas e da sua devolutiva para aprofundar
+            O Tutor parte da questão, das alternativas e da sua devolutiva para aprofundar
             o erro, comparar hipóteses e orientar a próxima revisão.
           </span>
         </p>
@@ -110,7 +110,7 @@ export const PreceptorCTA = ({ onOpen }) => (
             text-[12.5px] font-semibold"
           style={{ background: '#39574D' }}
         >
-          <Sparkles className="w-3.5 h-3.5" /> <span>Abrir análise com o Preceptor</span>
+          <Sparkles className="w-3.5 h-3.5" /> <span>Abrir análise com o Tutor</span>
         </span>
       </div>
     </div>
@@ -209,7 +209,7 @@ export const PreceptorChat = ({ reviewId, onClose }) => {
             <Stethoscope strokeWidth={1.8} className="w-5 h-5" />
           </span>
           <div>
-            <p className="text-[14px] font-semibold leading-tight"><span>Preceptor IA</span></p>
+            <p className="text-[14px] font-semibold leading-tight"><span>Tutor IA</span></p>
             <p className="text-[11.5px] opacity-80 leading-tight">
             <span>Questão, alternativas e devolutiva em contexto</span>
             </p>
@@ -365,7 +365,7 @@ export const PreceptorChat = ({ reviewId, onClose }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={onKey}
-            placeholder="Pergunte ao Preceptor sobre esta questão…"
+            placeholder="Pergunte ao Tutor sobre esta questão…"
             className="flex-1 resize-none px-3.5 py-2.5 rounded-lg text-[13.5px] hairline bg-white focus:outline-none focus:ring-2 focus:ring-brand/40 placeholder:text-zinc-400"
             style={{ maxHeight: '120px', minHeight: '42px' }}
           />

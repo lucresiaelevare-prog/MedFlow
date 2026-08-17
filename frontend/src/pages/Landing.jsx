@@ -148,7 +148,7 @@ const Landing = () => {
               </div>
             </div>
 
-            {/* Coluna direita — composição editorial: estudante + laptop do Preceptor */}
+            {/* Coluna direita — composição editorial: estudante + laptop do Tutor */}
             <div className="reveal reveal-3 relative min-w-0">
               {/* Glow discreto atrás */}
               <span
@@ -195,7 +195,7 @@ const Landing = () => {
             {[
               [
                 { text: 'Saiba exatamente o que estudar hoje',   Icon: Compass },
-                { text: 'Aprenda com um Preceptor IA',            Icon: GraduationCap },
+                { text: 'Aprenda com um Tutor IA',            Icon: GraduationCap },
                 { text: 'Nunca perca uma revisão',                Icon: Repeat },
               ],
               [

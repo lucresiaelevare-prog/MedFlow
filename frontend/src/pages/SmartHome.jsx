@@ -54,7 +54,7 @@ const routeForMission = (m) => {
   return CATEGORY_ROUTE[m.category] || '/pomodoro';
 };
 
-// ─── Preceptor hint (regra determinística, sem LLM) ──────────────
+// ─── Tutor hint (regra determinística, sem LLM) ──────────────
 // Só aparece se o check-in de hoje já foi feito. Máx. 2 linhas, sem CTA.
 const preceptorHint = (home) => {
   if (!home?.has_checkin_today) return null;
@@ -260,7 +260,7 @@ const SmartHome = () => {
                 />
               )}
 
-              {/* ── Preceptor: 1 linha, sem CTA, só após check-in ── */}
+              {/* ── Tutor: 1 linha, sem CTA, só após check-in ── */}
               {hint && (
                 <p
                   data-testid="smart-home-preceptor-hint"

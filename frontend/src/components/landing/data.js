@@ -52,12 +52,12 @@ export const SCREENS = [
   },
   {
     k: 'tutor',
-    kicker: 'Preceptor IA',
+    kicker: 'Tutor IA',
     title: 'Um mentor sempre\ndisponível — nunca genérico.',
-    body: 'Traga uma dúvida, um PDF, uma questão. O Preceptor identifica sua intenção e conduz a melhor estratégia: resumo, flashcard, revisão ou simulado.',
+    body: 'Traga uma dúvida, um PDF, uma questão. O Tutor identifica sua intenção e conduz a melhor estratégia: resumo, flashcard, revisão ou simulado.',
     bullets: ['Conversa contextual', 'Memória do que já viu', 'Revisão completa sob demanda'],
     img: '/brand/screen-tutor.jpeg',
-    alt: 'Tela do Preceptor IA com recomendação e chat',
+    alt: 'Tela do Tutor IA com recomendação e chat',
   },
   {
     k: 'biblioteca',
@@ -96,7 +96,7 @@ export const DIFF = [
   { legacy: 'Mostram cronogramas',             medflow: 'Consideram a realidade do dia' },
 ];
 
-// Preceptor IA — capacidades listadas na seção principal
+// Tutor IA — capacidades listadas na seção principal
 export const PRECEPTOR_CAPS = [
   { k: 'exp',  label: 'Explicações profundas',    hint: 'Da fisiologia ao raciocínio clínico.' },
   { k: 'sum',  label: 'Resumos inteligentes',      hint: 'Direto ao ponto, memorável.' },
@@ -106,10 +106,10 @@ export const PRECEPTOR_CAPS = [
   { k: 'case', label: 'Casos clínicos',            hint: 'Vinheta + decisão + feedback.' },
 ];
 
-// Experiência do Preceptor — sequência tipo Apple
+// Experiência do Tutor — sequência tipo Apple
 export const PRECEPTOR_FLOW = [
   { k: 'ask',   step: '01', title: 'Você pergunta',      hint: 'Digite, cole PDF, fotografe, fale. O que for mais rápido.' },
-  { k: 'read',  step: '02', title: 'Preceptor interpreta', hint: 'Identifica tema, disciplina e o que faz mais sentido gerar.' },
+  { k: 'read',  step: '02', title: 'Tutor interpreta', hint: 'Identifica tema, disciplina e o que faz mais sentido gerar.' },
   { k: 'exp',   step: '03', title: 'Constrói a explicação', hint: 'Do fundamento ao clínico, calibrado ao seu período.' },
   { k: 'sum',   step: '04', title: 'Gera o resumo',        hint: 'Uma linha memorável e bullets essenciais.' },
   { k: 'map',   step: '05', title: 'Desenha o mapa mental', hint: 'Estrutura hierárquica para fixar o modelo.' },
@@ -118,7 +118,7 @@ export const PRECEPTOR_FLOW = [
   { k: 'case',  step: '08', title: 'Entrega o caso clínico', hint: 'Você aplica na vinheta antes da prova.' },
 ];
 
-// Loading states — enquanto o Preceptor gera a Revisão Completa
+// Loading states — enquanto o Tutor gera a Revisão Completa
 export const PRECEPTOR_LOADING_STAGES = [
   'Analisando o tema…',
   'Organizando conceitos…',

@@ -20,7 +20,7 @@ import { saveCheckpoint } from '@/lib/resume';
  * que reutiliza conteúdo existente quando possível (memória-antes-de-IA).
  */
 
-// ─── Memória visível do Preceptor (localStorage) ──────────────
+// ─── Memória visível do Tutor (localStorage) ──────────────
 // Schema pensado desde já para migração ao backend (memória oficial do aluno).
 // A troca do storage é mecânica — o formato do estado permanece.
 //
@@ -120,7 +120,7 @@ function isYesterday(iso) {
 }
 
 // ─── Missões de aprendizagem — objetivos, não ferramentas ────
-// Cada missão apenas orienta a intenção. O Preceptor identifica
+// Cada missão apenas orienta a intenção. O Tutor identifica
 // o tema, a disciplina e a melhor estratégia via /tutor/preceptor/interpret.
 const MISSIONS = [
   {
@@ -1411,7 +1411,7 @@ const DueReviewRunner = ({ items, onExit }) => {
   );
 };
 
-// ── Insight do Preceptor (padrão observado, não texto genérico) ─
+// ── Insight do Tutor (padrão observado, não texto genérico) ─
 // Usa `home.noticed` do backend: quando o motor identifica um padrão real,
 // ele vem com mode='observed'. Se ainda não há sinal (mode='learning'),
 // escondemos — não inventamos observação.
@@ -1435,7 +1435,7 @@ const InsightCard = ({ noticed }) => {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--mf-brand)' }}>
-            <span>Insight do preceptor</span>
+            <span>Insight do tutor</span>
           </p>
           <p
             className="mt-1.5 text-[15px] text-slate-800 leading-relaxed"
@@ -1457,7 +1457,7 @@ const InsightCard = ({ noticed }) => {
 
 // ═══════════════════════════════════════════════════════════════
 // Substitui a antiga home cheia de "chat vazio + chips genéricos" por um
-// layout de produto premium: contexto primeiro (o Preceptor JÁ analisou),
+// layout de produto premium: contexto primeiro (o Tutor JÁ analisou),
 // recomendação única e específica, momento cognitivo lateral, chat
 // discreto com ações orientadas a resultado, e prova de evolução (domínio).
 // Toda a lógica de wizards, plano, devolutiva e MasteryMap segue intacta.
@@ -1483,7 +1483,7 @@ const RecommendationCard = ({ home, loading, error, onStart, onRetry }) => {
   if (error) {
     return (
       <div className="mf-card p-6 md:p-7" data-testid="tutor-recommendation-card">
-        <p className="eyebrow" style={{ color: 'var(--mf-care)' }}><span>Recomendação do preceptor</span></p>
+        <p className="eyebrow" style={{ color: 'var(--mf-care)' }}><span>Recomendação do tutor</span></p>
         <p className="mt-2 text-[15px] text-zinc-800">
           <span>Não consegui carregar a recomendação de hoje.</span>
         </p>
@@ -1503,7 +1503,7 @@ const RecommendationCard = ({ home, loading, error, onStart, onRetry }) => {
     return (
       <div className="mf-card p-6 md:p-7" data-testid="tutor-recommendation-card">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
-          <span>Recomendação do preceptor</span>
+          <span>Recomendação do tutor</span>
         </p>
         <p className="mt-2 text-[17px] font-semibold text-slate-900 tracking-tight">
           <span>Ainda estou aprendendo sua rotina.</span>
@@ -1549,7 +1549,7 @@ const RecommendationCard = ({ home, loading, error, onStart, onRetry }) => {
             className="text-[10.5px] font-bold uppercase tracking-[0.14em]"
             style={{ color: '#D5E8DE' }}
           >
-            <span>Missão sugerida pelo Preceptor</span>
+            <span>Missão sugerida pelo Tutor</span>
           </p>
         </div>
 
@@ -1826,7 +1826,7 @@ const ConverseCard = ({ text, setText, onSubmit, onMissionSelect, onAttach, onCa
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
-            <span>Converse com o preceptor</span>
+            <span>Converse com o tutor</span>
           </p>
         </div>
         <div className="flex items-center gap-0.5 shrink-0">
@@ -1963,7 +1963,7 @@ const DomainEvolutionCard = ({ loading }) => {
             <span>Mapa de domínio em construção</span>
           </p>
           <p className="mt-1.5 text-[12.5px] text-slate-500 max-w-sm mx-auto leading-relaxed">
-            <span>Converse com o preceptor ou resolva sua primeira questão para iniciar sua análise personalizada por disciplina.</span>
+            <span>Converse com o tutor ou resolva sua primeira questão para iniciar sua análise personalizada por disciplina.</span>
           </p>
         </div>
       ) : (
@@ -2143,7 +2143,7 @@ const DomainMapCard = () => {
             <span>Mapa de domínio em construção</span>
           </p>
           <p className="mt-1.5 text-[12.5px] text-slate-500 max-w-md mx-auto leading-relaxed">
-            <span>Converse com o preceptor ou resolva sua primeira questão para iniciar sua análise personalizada por disciplina.</span>
+            <span>Converse com o tutor ou resolva sua primeira questão para iniciar sua análise personalizada por disciplina.</span>
           </p>
         </div>
       </div>
@@ -2267,7 +2267,7 @@ const Tutor = () => {
   const [heroText, setHeroText] = useState('');
   const [mentorState, setMentorState] = useState(null);
 
-  // ── Dados do Preceptor (home/today) + Ritmo (iea) para o layout novo ──
+  // ── Dados do Tutor (home/today) + Ritmo (iea) para o layout novo ──
   const [homeToday, setHomeToday] = useState(null);
   const [homeLoading, setHomeLoading] = useState(true);
   const [homeError, setHomeError] = useState(null);
@@ -2381,7 +2381,7 @@ const Tutor = () => {
   };
 
   // ─── Seleção de missão (objetivo, não ferramenta) ────
-  // O aluno diz o que quer aprender — o Preceptor decide o formato.
+  // O aluno diz o que quer aprender — o Tutor decide o formato.
   const selectMission = (m) => {
     // Missão com rota fixa (ex.: analisar desempenho → /dashboard)
     if (m.route) {
@@ -2406,7 +2406,7 @@ const Tutor = () => {
     navigate(`/tutor/aprender${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
-  // Executar a recomendação do Preceptor: se tiver action_route, navega;
+  // Executar a recomendação do Tutor: se tiver action_route, navega;
   // senão, cai no fluxo "guide_me" (o motor decide).
   const startRecommendation = (rec) => {
     if (!rec) return;
@@ -2451,7 +2451,7 @@ const Tutor = () => {
                 <span>Olá{firstName ? `, ${firstName}` : ''} 👋</span>
               </h1>
               <p className="mt-2 text-[14.5px] text-slate-600 max-w-2xl leading-relaxed">
-                <span>Seu Preceptor analisou sua evolução de hoje e preparou o melhor plano para você.</span>
+                <span>Seu Tutor analisou sua evolução de hoje e preparou o melhor plano para você.</span>
               </p>
               {mentorState?.last_topic && (
                 <p className="mt-3 text-[13px] text-slate-500">
@@ -2488,7 +2488,7 @@ const Tutor = () => {
               />
             </div>
 
-            {/* ─── Insight do Preceptor (só aparece se há padrão real) ─── */}
+            {/* ─── Insight do Tutor (só aparece se há padrão real) ─── */}
             <InsightCard noticed={homeToday?.noticed} />
 
             {/* ─── Chat compacto com missões acionáveis ─── */}

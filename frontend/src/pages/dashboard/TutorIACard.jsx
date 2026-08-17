@@ -5,7 +5,7 @@ import { Sparkles, ArrowRight, MessagesSquare, Compass } from 'lucide-react';
  *
  * Camada de apresentação apenas. Sem fetch, sem state, sem hook próprio.
  * O comportamento (para onde vai) é responsabilidade do pai (Dashboard.jsx),
- * que injeta `onOpen`. Mantém a identidade do Preceptor IA e a linguagem
+ * que injeta `onOpen`. Mantém a identidade do Tutor IA e a linguagem
  * de mentor do MedFlow — não é placeholder, é o card final.
  */
 const TutorIACard = ({ onOpen }) => (
@@ -26,7 +26,7 @@ const TutorIACard = ({ onOpen }) => (
       {/* Corpo */}
       <div className="flex-1 min-w-0">
         <p className="eyebrow" style={{ color: 'var(--mf-brand)' }}>
-          <span>Preceptor IA</span>
+          <span>Tutor IA</span>
         </p>
         <h2 className="mt-1 text-[18px] md:text-[20px] font-semibold text-zinc-900 tracking-tight leading-snug">
           <span>Um mentor pra guiar sua próxima decisão de estudo.</span>
@@ -39,7 +39,7 @@ const TutorIACard = ({ onOpen }) => (
           </span>
         </p>
 
-        {/* Indicadores discretos do que o Preceptor faz — sem números fictícios */}
+        {/* Indicadores discretos do que o Tutor faz — sem números fictícios */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="pill">
             <MessagesSquare strokeWidth={1.75} className="w-3 h-3" />
@@ -63,7 +63,7 @@ const TutorIACard = ({ onOpen }) => (
             className="btn-primary"
           >
             <Sparkles strokeWidth={1.75} className="w-4 h-4" />
-            <span>Conversar com o Preceptor</span>
+            <span>Conversar com o Tutor</span>
             <ArrowRight strokeWidth={1.75} className="w-4 h-4" />
           </button>
         </div>

@@ -1,0 +1,22 @@
+{
+  "summary": "Verified visible-text rename from 'Preceptor' to 'Tutor' across landing (/), /tutor, /hoje, /dashboard. Zero occurrences of 'Preceptor' found in visible innerText on any of the tested routes. 'Tutor'/'Tutor IA' labels present. Admin login (admin@medflow.local) worked; navigation to /tutor, /hoje, /dashboard rendered without white screen or JS errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Rename limited to visible text as intended. data-testids and internal names (PreceptorChat, preceptor-cta, /tutor/preceptor/... API paths) intentionally kept — not a bug per user instruction. Consider a future cleanup of these identifiers to reduce cognitive dissonance for future contributors."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "test_credentials": "Admin: admin@medflow.local / MedFlowAdmin!2026",
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Rename validated. Verification method: page.evaluate innerText + regex /[Pp]receptor\\w*/. Results: /=0, /tutor=0, /hoje=0, /dashboard=0 visible 'Preceptor' occurrences. 'Tutor' present on all four (landing card 'Aprenda com um Tutor IA', dashboard 'TUTOR IA', sidebar 'Tutor'). Note: /tutor and /hoje bodies were relatively small (890 and 330 chars) — pages loaded but may be sparse when no student data seeded under admin session; not a rename issue.",
+  "rca of the issue": "N/A — no bug reproduced. Rename applied correctly to visible strings."
+}

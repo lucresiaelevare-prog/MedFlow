@@ -16,7 +16,7 @@ import ConfidencePrompt from './smart-review/ConfidencePrompt';
 /**
  * Devolutiva Inteligente Med Flow™
  *
- * O tutor age como preceptor: raciocínio clínico + pérola + erro comum +
+ * O tutor age como tutor: raciocínio clínico + pérola + erro comum +
  * aplicação prática + evidências (PubMed/OpenAlex) + próximos passos +
  * feedback personalizado (Mastery Map).
  */
@@ -339,7 +339,7 @@ const SmartReviewResult = ({ review, onBack }) => {
           />
           <div>
             <p className="text-[11.5px] uppercase tracking-wider font-semibold" style={{ color: 'var(--mf-brand)' }}>
-              <span>seu preceptor observa</span>
+              <span>seu tutor observa</span>
             </p>
             <p className="mt-1 text-[14px] text-zinc-800 leading-relaxed">
               <span>{review.personalized.message}</span>
@@ -482,7 +482,7 @@ const SmartReviewResult = ({ review, onBack }) => {
         )}
       </Accordion>
 
-      {/* CTA + Chat contextualizado com o Preceptor IA */}
+      {/* CTA + Chat contextualizado com o Tutor IA */}
       {!chatOpen && (
         <div className="pt-2">
           <PreceptorCTA onOpen={() => setChatOpen(true)} />
@@ -668,7 +668,7 @@ const SmartReview = () => {
             <span>Devolutiva Inteligente Med Flow™</span>
           </h1>
           <p className="mt-2 text-[14.5px] text-zinc-500 max-w-2xl leading-relaxed">
-            <span>Não é só a resposta certa. É um preceptor experiente ensinando raciocínio clínico, mostrando onde os candidatos erram e conectando teoria à prática.</span>
+            <span>Não é só a resposta certa. É um tutor experiente ensinando raciocínio clínico, mostrando onde os candidatos erram e conectando teoria à prática.</span>
           </p>
         </header>
 

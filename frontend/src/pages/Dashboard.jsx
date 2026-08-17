@@ -64,7 +64,7 @@ const MissaoDeHojeV2 = ({ rec, onStart }) => {
   const minutes = rec?.duration_min && rec.duration_min > 1 ? rec.duration_min : 22; // mock fallback
   // Subtarefas — sem endpoint, ficam como pistas visuais fixas do fluxo do MedFlow
   const subtasks = [
-    { label: 'Estudo teórico', detail: 'com o Preceptor', Icon: BookOpen },
+    { label: 'Estudo teórico', detail: 'com o Tutor', Icon: BookOpen },
     { label: 'Questões',       detail: '2 blocos',        Icon: HelpCircle },
     { label: 'Revisão',        detail: 'espaçada',        Icon: RotateCw },
   ];
@@ -265,7 +265,7 @@ const Dashboard = () => {
   // Recomendação principal (mesma fonte que a Home Inteligente usa)
   const rec = bundle?.recommendation || (primary ? {
     title: primary.title,
-    subtitle: primary.subtitle || 'Missão do Preceptor',
+    subtitle: primary.subtitle || 'Missão do Tutor',
     duration_min: primary.minutes || 0,
     action_route: primary.action_route || '/checkin',
     action_label: primary.action_label || 'Começar',
@@ -346,7 +346,7 @@ const Dashboard = () => {
               ECG-semáforo do RhythmStrip que já mostra label + score + status
               por pilar, e nomeia o pilar limitante na mensagem humana. */}
 
-          {/* Preceptor IA — identidade preservada, visual v2 */}
+          {/* Tutor IA — identidade preservada, visual v2 */}
           <div className="mb-6">
             <TutorIACard onOpen={() => navigate('/tutor')} />
           </div>

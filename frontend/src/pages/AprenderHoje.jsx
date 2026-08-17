@@ -13,7 +13,7 @@ import { useAuth } from '@/context/AuthContext';
 /**
  * Centro de Aprendizagem Inteligente — entrada universal.
  *
- * "No Med Flow, você não aprende sozinho. O Preceptor IA acompanha cada
+ * "No Med Flow, você não aprende sozinho. O Tutor IA acompanha cada
  * passo da sua evolução, identifica suas dificuldades, adapta sua
  * estratégia de estudo e conduz você até a aprovação."
  */
@@ -170,7 +170,7 @@ function useSpeechRecognition() {
 }
 
 // ─── Conversation Card ─────────────────────────────────────
-// PRINCÍPIO 2: o Preceptor NUNCA responde direto com conteúdo.
+// PRINCÍPIO 2: o Tutor NUNCA responde direto com conteúdo.
 // Primeiro conversa; depois oferece caminhos de estudo.
 // Cada opção é uma "sessão focada" da Revisão Completa.
 const STUDY_MODES = [
@@ -211,7 +211,7 @@ const ConversationCard = ({ result, onPickMode, onChat }) => {
 
   return (
     <div className="mf-card p-5 md:p-6 space-y-5 animate-fade-in" data-testid="mission-result">
-      {/* Fala do Preceptor — cabeça humana, tom acolhedor */}
+      {/* Fala do Tutor — cabeça humana, tom acolhedor */}
       <div className="flex items-start gap-3">
         <span
           className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[15px]"
@@ -222,7 +222,7 @@ const ConversationCard = ({ result, onPickMode, onChat }) => {
         </span>
         <div className="flex-1 min-w-0">
           <p className="text-[11px] uppercase tracking-widest text-zinc-400 font-medium">
-            <span>Preceptor</span>
+            <span>Tutor</span>
           </p>
           <p
             data-testid="preceptor-greeting"
@@ -292,7 +292,7 @@ const ConversationCard = ({ result, onPickMode, onChat }) => {
 
 // ─── Full Review result view ────────────────────────────────
 // PRINCÍPIO 7: nunca termina em uma única resposta. Ao final,
-// o Preceptor sempre conduz o aluno pro próximo passo natural.
+// o Tutor sempre conduz o aluno pro próximo passo natural.
 const FOCUS_LABELS = {
   all:         'Revisão completa',
   memorize:    'Consolidação inteligente',
@@ -565,7 +565,7 @@ const FullReviewView = ({ data, focus = 'all', onBack, onPickAnother, onNextStep
   );
 };
 
-// ─── Hero do Preceptor (mentor, não pergunta) ─────────────
+// ─── Hero do Tutor (mentor, não pergunta) ─────────────
 // Quando existe recomendação real vinda de /api/home/today, o hero
 // se comporta como um mentor: "Analisei sua evolução. Hoje o melhor
 // uso do seu tempo é ...". Sem dados, cai num fallback humilde.
@@ -585,7 +585,7 @@ const PreceptorHero = ({ firstName, home, loading, onGo }) => {
     >
       <div className="p-6 md:p-8">
         <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--mf-brand)' }}>
-          <span>Preceptor IA · Particular</span>
+          <span>Tutor IA · Particular</span>
         </p>
 
         <p className="mt-3 text-[15.5px] text-slate-700 leading-relaxed">
@@ -607,7 +607,7 @@ const PreceptorHero = ({ firstName, home, loading, onGo }) => {
               style={{ fontSize: 'clamp(24px, 3.4vw, 34px)', letterSpacing: '-0.02em' }}
               data-testid="aprender-hero-title"
             >
-              <span>{rec.title || rec.action_label || 'Sessão guiada com o Preceptor'}</span>
+              <span>{rec.title || rec.action_label || 'Sessão guiada com o Tutor'}</span>
             </h1>
             {(rec.why_now || rec.subtitle) && (
               <p className="mt-2.5 text-[13.5px] text-slate-600 leading-relaxed max-w-xl">
@@ -639,7 +639,7 @@ const PreceptorHero = ({ firstName, home, loading, onGo }) => {
                 style={{ background: 'var(--mf-brand)', boxShadow: '0 8px 20px -6px rgba(108,92,231,.55)' }}
               >
                 <Play className="w-4 h-4" fill="currentColor" />
-                <span>Ir com o Preceptor</span>
+                <span>Ir com o Tutor</span>
               </button>
             </div>
           </>
@@ -723,7 +723,7 @@ const AprenderHoje = () => {
     localStorage.setItem('medflow-period', String(nextPeriod));
   };
 
-  // Carrega a leitura do Preceptor pra usar no hero (recomendação + noticed)
+  // Carrega a leitura do Tutor pra usar no hero (recomendação + noticed)
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -742,7 +742,7 @@ const AprenderHoje = () => {
   const { supported: voiceSupported, listening, start: startVoice, stop: stopVoice } =
     useSpeechRecognition();
 
-  // Suporte a deep-link vindo da tela do Preceptor (missões / envie tudo aqui)
+  // Suporte a deep-link vindo da tela do Tutor (missões / envie tudo aqui)
   //   ?q=<texto>         → auto-interpreta imediatamente
   //   ?prompt=<prefixo>  → só pré-preenche o campo (aluno completa)
   //   ?resume=1          → "Retomar estudo": pula o menu, vai direto pra Revisão Completa
@@ -794,7 +794,7 @@ const AprenderHoje = () => {
     }
   };
 
-  // ─── "Ir com o Preceptor" — leva o aluno para a recomendação do dia ──
+  // ─── "Ir com o Tutor" — leva o aluno para a recomendação do dia ──
   const goWithPreceptor = () => {
     const rec = home?.recommendation;
     if (!rec) return;
@@ -808,7 +808,7 @@ const AprenderHoje = () => {
       handleInterpret(topic, 'preceptor');
       return;
     }
-    handleInterpret('Sessão guiada pelo Preceptor', 'preceptor');
+    handleInterpret('Sessão guiada pelo Tutor', 'preceptor');
   };
 
   const handleInterpret = async (rawText, srcType = source) => {
@@ -961,7 +961,7 @@ const AprenderHoje = () => {
              Um cabeçalho enxuto basta pra manter contexto. */
           <header className="mb-5" data-testid="aprender-hero">
             <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--mf-brand)' }}>
-              <span>preceptor ia · particular</span>
+              <span>tutor ia · particular</span>
             </p>
           </header>
         ) : (
@@ -1007,7 +1007,7 @@ const AprenderHoje = () => {
                 </select>
               </div>
               <p className="max-w-sm text-[12px] leading-relaxed text-slate-500">
-                O Preceptor integra automaticamente módulos, sistema corporal e profundidade da aula.
+                O Tutor integra automaticamente módulos, sistema corporal e profundidade da aula.
               </p>
             </section>
             {/* Ações rápidas — mentor: "Ou escolha outro caminho" */}
@@ -1015,7 +1015,7 @@ const AprenderHoje = () => {
               <section
                 className="mb-6"
                 data-testid="aprender-actions"
-                aria-label="Ações rápidas do Preceptor"
+                aria-label="Ações rápidas do Tutor"
               >
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
                   <span>Ou escolha outro caminho</span>
@@ -1151,7 +1151,7 @@ const AprenderHoje = () => {
                   className="btn-primary"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-                  <span>{loading ? 'Estou pensando…' : 'Enviar ao Preceptor'}</span>
+                  <span>{loading ? 'Estou pensando…' : 'Enviar ao Tutor'}</span>
                 </button>
               </div>
               </div>
