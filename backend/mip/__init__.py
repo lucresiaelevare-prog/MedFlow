@@ -1,0 +1,1 @@
+"""Fundação isolada do MedFlow Pedagogical Intelligence Engine."""

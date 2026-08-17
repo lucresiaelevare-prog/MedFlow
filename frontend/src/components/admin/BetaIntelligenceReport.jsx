@@ -1,0 +1,19 @@
+import { Brain, RefreshCw } from 'lucide-react';
+
+const percentage = (value) => value == null ? '—' : `${Math.round(value * 100)}%`;
+
+export const BetaIntelligenceReport = ({ data, loading, onRefresh }) => {
+  if (!data && loading) return null;
+  if (!data) return null;
+  const rec = data.recommendations;
+  return (
+    <section className="border border-violet-100 bg-violet-50/40 p-6 shadow-sm" data-testid="beta-intelligence-report">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-start gap-2.5"><Brain className="mt-0.5 h-5 w-5 text-violet-700" /><div><p className="text-xs font-medium uppercase tracking-[0.12em] text-violet-700">Inteligência do MedFlow</p><h2 className="mt-1 text-lg font-semibold text-slate-900">Relatório Beta observacional</h2></div></div>
+        <button type="button" onClick={onRefresh} data-testid="beta-intelligence-refresh" className="inline-flex items-center gap-2 border border-violet-200 bg-white px-3 py-2 text-xs font-medium text-violet-800 hover:bg-violet-100"><RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />Atualizar</button>
+      </div>
+      <div className="mt-5 grid grid-cols-2 gap-px border border-violet-100 bg-violet-100 md:grid-cols-4"><div className="bg-white p-4"><p className="text-xs text-slate-500">Usuários ativos</p><p className="mt-2 text-2xl font-semibold text-slate-900">{data.active_users}</p></div><div className="bg-white p-4"><p className="text-xs text-slate-500">Recomendações exibidas</p><p className="mt-2 text-2xl font-semibold text-slate-900">{rec.displayed}</p></div><div className="bg-white p-4"><p className="text-xs text-slate-500">Recomendações abertas</p><p className="mt-2 text-2xl font-semibold text-slate-900">{percentage(rec.open_rate)}</p></div><div className="bg-white p-4"><p className="text-xs text-slate-500">Motivos expandidos</p><p className="mt-2 text-2xl font-semibold text-slate-900">{percentage(rec.why_expanded_rate)}</p></div><div className="bg-white p-4"><p className="text-xs text-slate-500">Ações concluídas</p><p className="mt-2 text-2xl font-semibold text-slate-900">{rec.executed}</p></div><div className="bg-white p-4"><p className="text-xs text-slate-500">Recomendações rejeitadas</p><p className="mt-2 text-2xl font-semibold text-slate-900">{rec.rejected}</p></div><div className="bg-white p-4 md:col-span-2"><p className="text-xs text-slate-500">Confiança média</p><p className="mt-2 text-2xl font-semibold text-slate-900">{data.confidence.average ?? '—'} <span className="text-sm font-normal text-slate-500">/ 5 · {data.confidence.sample_size} sinais</span></p></div></div>
+      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2"><div><h3 className="text-sm font-semibold text-slate-900">Principais motivos de baixa confiança</h3>{data.confidence.low_confidence_topics.length ? <ul className="mt-3 divide-y divide-violet-100">{data.confidence.low_confidence_topics.map((item, index) => <li key={`${item.discipline}-${item.topic}-${index}`} className="flex justify-between gap-3 py-2 text-sm"><span className="text-slate-700">{item.discipline} · {item.topic}</span><span className="font-medium text-violet-800">{item.average_confidence}/5</span></li>)}</ul> : <p className="mt-3 text-sm text-slate-500">Ainda não há sinais suficientes.</p>}</div><div><h3 className="text-sm font-semibold text-slate-900">Insights para evolução da IA</h3>{data.insights.length ? <ul className="mt-3 space-y-2">{data.insights.map((insight, index) => <li key={index} className="text-sm leading-relaxed text-slate-700">{insight}</li>)}</ul> : <p className="mt-3 text-sm text-slate-500">Ainda não há amostra suficiente para hipóteses.</p>}<p className="mt-4 text-xs leading-relaxed text-slate-500">Dados observacionais. Não mudam plano, prioridade, revisão ou recomendação.</p></div></div>
+    </section>
+  );
+};

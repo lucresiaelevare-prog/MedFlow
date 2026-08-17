@@ -1,0 +1,2 @@
+/* App-level global tweaks — most styling is in index.css */
+.App { min-height: 100vh; }

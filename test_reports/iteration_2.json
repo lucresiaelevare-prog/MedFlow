@@ -1,0 +1,41 @@
+{
+  "summary": "FASE 3 SMOKE TEST — MedFlow Copiloto Acadêmico. Testados 15 fluxos (UI + API). PASS: Landing, Google OAuth redirect, dev-login (A & B), /hoje SmartHome, missão click -> /pomodoro, Pomodoro, /habitos UI, Tutor IA chat (~2s, emergent Gemini Flash), Devolutiva Inteligente (10 questões, ~14-21s), Devolutiva com 2º usuário (isolamento cross-user OK, content_id A != content_id B), /dashboard (renderiza como home autenticada), /admin-login com eder@medflow.local (painel Admin carrega com métricas Total/Ativos/etc.), logout+relogin restabelece sessão. FAIL CRÍTICO: Revisão Completa (/api/tutor/preceptor/full-review e /full-review/stream) retorna 502 recorrente 'O Preceptor está indisponível' devido a AIRouterError — Emergent Universal Key hitting concurrent_request_limit (litellm.RateLimitError 429) e não há providers alternativos (openai/groq 'not_configured'). Reproduzido em 5/5 tentativas seguidas (users A e fresh users C/D/E) — geração leva 60-100s quando eventualmente sucede (gpt-4o fallback), mas maioria termina em 502 após ~29s. Isso quebra o critério GO da FASE 3.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "/api/tutor/preceptor/full-review/stream", "issue": "SSE emite event:error {status:502, detail:'O Preceptor está indisponível...'} em ~29s. Backend log: AIRouterError todos os providers falharam (structured) — emergent RateLimitError concurrent_request_limit; openai/groq 'not_configured'. Reproduzido em 5/5 tentativas, incluindo usuários frescos sem histórico de quota.", "priority": "CRITICAL"},
+      {"endpoint": "/api/tutor/preceptor/full-review", "issue": "Mesma causa raiz do stream. Além disso, ao autenticar como Aluno A (free), 2ª chamada retorna 429 'Limite diário de revisão premium atingido' (limit=1) — comportamento by-design de ai_quota.consume_preceptor_review para plan=free, mas dificulta smoke test."}
+    ],
+    "minor": [
+      {"endpoint": "ai_router chain", "issue": "Chain de fallback (Gemini Flash -> Claude -> GPT-4o) todos vão pelo mesmo provider 'emergent', então concurrent_request_limit derruba a chain inteira. Sem provider externo configurado, não há resiliência real."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Revisão Completa (/tutor/aprender -> streamPost /full-review/stream)", "issue": "UI receberá event:error 502 do SSE; o usuário não conclui a geração. Frontend api.js consome corretamente o SSE — problema é no backend.", "affected_selectors": ["/tutor/aprender"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_phase1_devolutiva_e2e.py",
+    "/app/backend/tests/test_phase1_devolutiva_isolation.py",
+    "/app/test_reports/iteration_2.json"
+  ],
+  "action_items": [
+    "P0: Resolver 502 recorrente do /api/tutor/preceptor/full-review(/stream). Emergent Universal Key está bloqueando por 'concurrent_request_limit'. Opções: (a) serializar/enfileirar chamadas full-review no backend para respeitar limite de concorrência do Emergent; (b) configurar provider secundário real (OPENAI/GROQ) no ai_router para fallback verdadeiro fora do emergent; (c) trocar tier='structured' desses endpoints para o mesmo provider já provado (Gemini Flash) com retry/backoff (o próprio log mostra que quando não há contenção, gpt-4o fallback conclui em 90-100s, o que é além do limite ideal); (d) desativar 2 retries paralelos internos que consumem 2 slots de concorrência.",
+    "Documentar / ajustar: free-plan full-review tem limit=1/dia (ai_quota.consume_preceptor_review). Se o Beta espera múltiplas gerações por sessão de demo, considerar aumentar ou permitir bypass via plan='premium' de test."
+  ],
+  "critical_code_review_comments": [
+    "preceptor_router.full_review (linha 481): faz 2 tentativas seriadas caso JSON malformado — na prática ambas herdam o mesmo timeout de smart_chat, e o AIRouterError já surge no attempt 1 (rate limit) sem chegar ao repair_and_parse.",
+    "ai_router: preferência 'emergent' + chain interno emergent(gemini->claude->gpt-4o) tudo pelo mesmo provider; quando emergent throttle, chain inteiro cai. Falta um provider realmente externo (OPENAI_API_KEY/GROQ_API_KEY).",
+    "sse_response continua enviando keep-alive por até 60s (ingress timeout) mesmo após backend produzir HTTPException — Ok, mas o cliente recebe corretamente o event:error com status 502 no final; frontend precisa tratar esse event com UX de retry (verificar se AprenderHoje.jsx faz isso)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "~85% (13/15 fluxos OK; Revisão Completa e non-stream full-review falham por 502)", "frontend": "100% dos fluxos UI carregam sem runtime error; integração com Revisão Completa falha por causa do backend 502"},
+  "test_credentials": "dev-login: smoke_userA@medflow.local / smoke_userB@medflow.local (e usuários frescos smoke_userC/D/E_TIMESTAMP). Admin: eder@medflow.local / EderAdmin!2026. ENABLE_DEV_LOGIN=true confirmado.",
+  "seed_data_creation": "2 devolutivas geradas (userA cm_517e0a7ebc014ec5, userB cm_bdcfdd37fcff460c) confirmando isolamento cross-user. 5+ tentativas de full-review (a maioria retornou 502).",
+  "retest_needed": true,
+  "main_agent_can_self_test": false,
+  "context_for_next_testing_agent": "Após main agent corrigir o 502 do full-review (provavelmente ajustando ai_router para serializar chamadas ou configurando provider externo), rodar novamente: (1) POST /api/auth/dev-login com email novo; (2) POST /api/tutor/preceptor/full-review/stream com {topic:'Insuficiência cardíaca', subject:'Cardiologia'}; esperar até 120s; conferir event:done no SSE. Devolutiva, Tutor, Admin, Hábitos, Pomodoro, Landing/Login OAuth, dev-login, isolamento cross-user — todos já validados nesta iteração e provavelmente não precisam re-teste extenso.",
+  "rca of the issue": "RCA Revisão Completa 502: /app/backend/routes/preceptor_router.py:483 chama smart_chat(tier='structured', prefer='emergent'). O ai_router (emergent chain: gemini-2.5-flash -> claude-sonnet-4-5 -> gpt-4o) todos usam o MESMO provider 'emergent'. Emergent Universal Key retorna litellm.RateLimitError com detail 'concurrent_request_limit' (mensagem literal: 'Unlock parallel requests by upgrading'). Como fallback externo (openai/groq) está 'not_configured', AIRouterError sobe e o handler joga HTTPException 502. Reproduzido consistentemente em 5 chamadas seguidas. Mitigação: (1) enfileirar/serializar chamadas full-review para não exceder concurrency da Universal Key; (2) configurar OPENAI_API_KEY ou GROQ_API_KEY em /app/backend/.env para provider externo real; (3) reduzir retries internos que multiplicam o consumo de slots concorrentes."
+}
